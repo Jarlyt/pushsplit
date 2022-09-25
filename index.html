@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Eat cells smaller than you and don't get eaten by the bigger ones, as an MMO">
+    <meta name="keywords" content="agario, agar, io, cell, cells, virus, bacteria, blob, game, games, web game, html5, fun, flash">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <title>pushsplit.io</title>
+
+    <link id="favicon" rel="icon" type="image/png" href="assets/img/favicon.png" />
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:700' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/ligh.css" rel="stylesheet">
+	<link href="assets/css/index.css" rel="stylesheet">
+	<link href="assets/css/aaas.css" rel="stylessheet">
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="assets/js/log.js"></script>
+    <script src="assets/js/reader.js"></script>
+    <script src="assets/js/writer.js"></script>
+    <script src="assets/js/quad.js"></script>
+    <script src="assets/js/vector.js"></script>
+    <script src="assets/js/main_out.js"></script>
+	<script src="assets/js/macro.js"></script>
+</head>
+
+<body>
+    <div class="modal fade" id="inPageModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 id="inPageModalTitle" class="modal-title">Failed to Load</h4>
+                </div>
+                <div id="inPageModalBody" class="modal-body">
+                    <p>Failed to load. Please check your connection!</p>
+                    <div class="center">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="overlays">
+	
+	
+        <div id="helloDialog">
+			<div id="leftPanel">
+				<div id="macros" class="tabcontent">
+					<center><h3>Hotkeys</h3></center>
+					<hr>
+						<div class="keycontrol-box">
+							<div class="info" style="margin-left: 3px;">
+							  DoubleSplit<div id="doublesplit-keybox" class="keybox" tabindex="0"></div>
+							</div>
+							<div class="info" style="margin-right: -4px;">
+							  TripleSplit<div id="triplesplit-keybox" class="keybox" tabindex="0"></div>
+							</div>
+							<div class="info">
+							  16x Split<div id="sixteensplit-keybox" class="keybox" tabindex="0"></div> 
+							</div>
+							<div class="info">
+							  32x Split<div id="sixtyfoursplit-keybox" class="keybox" tabindex="0"></div> 
+							</div>
+						</div>
+					</hr>
+			  </div>		
+            </div>
+			<div id="rightPanel">
+					 <font color="#f2f2f2"><b>
+					   <center>
+						<h2 id="title">Servers</h2>					
+					    </center>
+						<button type="button" id="play-btn" onclick="setserver('5.tcp.eu.ngrok.io:13521'); return false;" class="btn btn-play btn-primary btn-needs-server">Self-feed</button>
+				</div>
+            <form role="form">
+                <div class="form-group">
+                    <h2 id="title">PUSHSPLIT.IO</h2>
+                </div>
+
+                <div class="form-group">
+                    <input id="nick" class="form-control save" data-box-id="0" placeholder="Nick" maxlength="25" />
+                    
+                    <br clear="both" />
+                </div>
+
+                <div class="form-group">
+                    <div class="mb-10">
+                        <a data-toggle="modal" data-target="#inPageModal" onclick="openSkinsList();" class="btn-primary btn btn-info" role="button" style="width: 100%;">Skins Gallery</a>
+                    </div>
+
+                    <button type="button" id="play-btn" onclick="play(document.getElementById('nick').value); return false;" style="width: 50%" class="btn btn-play btn-primary btn-needs-server">Play</button>
+					<button id="spectate-btn" onclick="spectate(); return false;" style="width: 50%" class="btn btn-warning btn-spectate btn-needs-server">Spectate</button>
+					<hr />
+                    <button onclick="$('#settings, #instructions').toggle(); return false;" style="width: 100%;" class="btn btn-info btn-settings" id="settings-btn">Settings</button>
+                    <br clear="both" />
+                </div>
+				
+                <div id="settings" class="checkbox" style="display:none;">
+                    <div class="form-group" id="mainform">
+                
+                        <br clear="both" />
+                    </div>
+                    <div style="margin: 6px;">
+                        <label>
+                            <input type="checkbox" class="save" data-box-id="1" onchange="setSkins(!$(this).is(':checked'));"> No skins</label>
+                        <label>
+                            <input type="checkbox" class="save" data-box-id="2" onchange="setNames(!$(this).is(':checked'));"> No names</label>
+                        <label>
+                            <input type="checkbox" class="save" data-box-id="3" onchange="setDarkTheme($(this).is(':checked'));"> Dark Theme</label>
+                        <label>
+                            <input type="checkbox" class="save" data-box-id="4" onchange="setColors($(this).is(':checked'));"> No colors</label>
+                        <label>
+                            <input type="checkbox" class="save" data-box-id="5" onchange="setShowMass($(this).is(':checked'));"> Show mass</label>
+                        <label>
+                            <input type="checkbox" class="save" data-box-id="6" onchange="setSmooth($(this).is(':checked'));"> Smooth Render</label>
+                        <label>
+                            <input type="checkbox" class="save" data-box-id="7" onchange="setChatHide($(this).is(':checked'));"> Hide Chat</label>
+                    </div>
+                </div>
+            </form>
+
+            <div id="instructions">
+                <hr/>
+                <center>
+                    <span class="text-muted">
+                        Move your mouse to control your cell<br/>
+                        Press <b>Space</b> to split<br/>
+                        Press <b>W</b> to eject some mass<br/>
+                    </span>
+                </center>
+            </div>
+
+            <hr />
+            
+
+        </div>
+		
+    </div>
+	<script type="text/javascript">
+	
+                  
+                  let doubleSplitBox = document.querySelector("#doublesplit-keybox");
+                  let tripleSplitBox = document.querySelector("#triplesplit-keybox");
+                  let sixteenSplitBox = document.querySelector("#sixteensplit-keybox");
+                  let sixtyfourSplitBox = document.querySelector("#sixtyfoursplit-keybox");
+                  let feedkeyBox = document.querySelector("#feedkey-keybox");
+                  
+                  doubleSplitBox.addEventListener("keydown", event => {
+                      doubleSplitBox.innerText = event.key == " " ? event.code : event.key;
+                      localStorage.setItem("doubleSplitKey", doubleSplitBox.innerText.toLowerCase());
+                  });
+                  tripleSplitBox.addEventListener("keydown", event => {
+                      tripleSplitBox.innerText = event.key == " " ? event.code : event.key;
+                      localStorage.setItem("tripleSplitKey", tripleSplitBox.innerText.toLowerCase());
+                  });
+                  sixteenSplitBox.addEventListener("keydown", event => {
+                      sixteenSplitBox.innerText = event.key == " " ? event.code : event.key;
+                      localStorage.setItem("sixteenSplitKey", sixteenSplitBox.innerText.toLowerCase());
+                  });
+                  sixtyfourSplitBox.addEventListener("keydown", event => {
+                      sixtyfourSplitBox.innerText = event.key == " " ? event.code : event.key;
+                      localStorage.setItem("sixtyfourSplitKey", sixtyfourSplitBox.innerText.toLowerCase());
+                  });
+                  feedkeyBox.addEventListener("keydown", event => {
+                      feedkeyBox.innerText = event.key == " " ? event.code : event.key;
+                      localStorage.setItem("feedKey", feedkeyBox.innerText.toLowerCase());
+                  });
+                  
+                  doubleSplitBox.innerText = localStorage.getItem("doubleSplitKey");
+                  tripleSplitBox.innerText = localStorage.getItem("tripleSplitKey");
+                  sixteenSplitBox.innerText = localStorage.getItem("sixteenSplitKey");
+                  sixtyfourSplitBox.innerText = localStorage.getItem("sixtyfourSplitKey");
+                  feedkeyBox.innerText = localStorage.getItem("feedKey");
+              </script>       
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <input type="text" id="chat_textbox" placeholder="Press enter to chat" maxlength="200" />
+    <div style="font-family:'Ubuntu'">&nbsp;</div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>
